@@ -1,55 +1,59 @@
-<?php
-session_start();
-$sessData = !empty($_SESSION['sessData'])?$_SESSION['sessData']:'';
-if(!empty($sessData['status']['msg'])){
-    $statusMsg = $sessData['status']['msg'];
-    $statusMsgType = $sessData['status']['type'];
-    unset($_SESSION['sessData']['status']);
-}
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Registro de Usuario Login y Cambio de Contraseña en PHP y MySQL</title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" 	type="text/css" media="all">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles/style.css">
+  <title>Document</title>
 </head>
-<body>
-    <h1>Registro de Usuario, Login y Cambio de Contraseña en PHP y MySQL</h1>
-	<div class="container">
-        <?php
-			if(!empty($sessData['userLoggedIn']) && !empty($sessData['userID'])){
-				include 'user.php';
-				$user = new User();
-				$conditions['where'] = array(
-					'id' => $sessData['userID'],
-				);
-				$conditions['return_type'] = 'single';
-				$userData = $user->getRows($conditions);
-		?>
-        <h2>Bienvenid@ <?php echo $userData['first_name']; ?>!</h2>
-        <a href="userAccount.php?logoutSubmit=1" class="logout">Cerrar Sesión</a>
-		<div class="regisFrm">
-			<p><b>Nombre: </b><?php echo $userData['first_name'].' '.$userData['last_name']; ?></p>
-            <p><b>Correo: </b><?php echo $userData['email']; ?></p>
-            <p><b>Teléfono: </b><?php echo $userData['phone']; ?></p>
-		</div>
-        <?php }else{ ?>
-		<a href="https://www.configuroweb.com/desarrollo/" align="center"><h2>ConfiguroWeb</h2></a>
-		<h2 align="center">Ingresa en tu Cuenta</h2>
-        <?php echo !empty($statusMsg)?'<p class="'.$statusMsgType.'">'.$statusMsg.'</p>':''; ?>
-		<div class="regisFrm">
-			<form action="userAccount.php" method="post">
-				<input type="email" name="email" placeholder="Correo Electrónico" required="">
-				<input type="password" name="password" placeholder="Contraseña" required="">
-				<div class="send-button">
-					<input type="submit" name="loginSubmit" value="Ingresar">
-				</div>
-				<br><br><a href="forgotPassword.php">¿Olvidaste tu Contraseña?</a>
-			</form>
-            <p>¿No tienes cuenta aún? <a href="registration.php">Regístrate acá</a></p>
-		</div>
-        <?php } ?>
-	</div>
-</body>
+<body class="text-center">
+    
+<main class="form-signin w-100 m-auto">
+  <form action="config/login.php" method="POST">
+    <h1>8dev</h1>
+    <h2 class="h3 mb-3 fw-normal">Por favor, inicia sesión</h2>
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+      <label for="floatingInput">Correo electrónico</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesión</button>
+    <div class="my-2">
+      <a href="recovery.php">¿Olvidaste tu contraseña?</a>
+    </div>
+    <?php 
+    if(isset($_GET['message'])){
+     
+    ?>
+      <div class="alert alert-primary" role="alert">
+        <?php 
+        switch ($_GET['message']) {
+          case 'ok':
+            echo 'Por favor, revisa tu correo';
+            break;
+          case 'success_password':
+            echo 'Inicia sesión con tu nueva contraseña';
+            break;
+            
+          default:
+            echo 'Algo salió mal, intenta de nuevo';
+            break;
+        }
+        ?>
+      </div>
+    <?php
+    }
+    ?>
+  </form>
+</main>
+
+
+    
+  </body>
 </html>
