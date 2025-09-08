@@ -1,58 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles/style.css">
-  <title>Document</title>
-</head>
-<body class="text-center">
-    
-<main class="form-signin w-100 m-auto">
-  <form action="config/login.php" method="POST">
-    <h1>8dev</h1>
-    <h2 class="h3 mb-3 fw-normal">Por favor, inicia sesión</h2>
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-      <label for="floatingInput">Correo electrónico</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-      <label for="floatingPassword">Password</label>
-    </div>
+<html lang="es">
+  <head>
+  <title>Login con PHP y MYSQL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/login_regist.css">
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar sesión</button>
-    <div class="my-2">
-      <a href="recovery.php">¿Olvidaste tu contraseña?</a>
-    </div>
-    <?php 
-    if(isset($_GET['message'])){
-     
-    ?>
-      <div class="alert alert-primary" role="alert">
-        <?php 
-        switch ($_GET['message']) {
-          case 'ok':
-            echo 'Por favor, revisa tu correo';
-            break;
-          case 'success_password':
-            echo 'Inicia sesión con tu nueva contraseña';
-            break;
-            
-          default:
-            echo 'Algo salió mal, intenta de nuevo';
-            break;
-        }
-        ?>
-      </div>
-    <?php
+    <style type="text/css">
+    .backgroundFondo{
+    background: url('assets/images/fondo.jpg') no-repeat center top;
+    background-size: cover;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     }
-    ?>
-  </form>
-</main>
+    </style>
+  </head>
+  <body class="backgroundFondo">
 
+<?php
+    include('msjs.php');
+?>
+
+<div class="container"> 
+<div class="world-latest-articles">
+    <div class="row">
+      <div class="col-12 col-lg-12">
+
+    <div class="form">
+        <div id="signup">
+            <h1 class="text-center" style="color: #333; font-weight: bold;">Iniciar Sesión</h1>
+            <form action="verificarDatos/verificar_sesion.php" method="post">
+                <div class="field-wrap">
+                    <label>Correo</label>
+                    <input type="email" name="email" required autocomplete="off"/>
+                </div>
+                <div class="field-wrap">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" required autocomplete="off"/>
+                </div>
+
+                <input type="submit" class="button button-block mb-3 mt-5 miBtn mt-3" value="ENTRAR"/>
+                <
+
+                <a href="registrarusuario.php" id="nuevaCuenta" title="Volver">Crear Cuenta..!</a>
+
+                <a href="#" id="olvidar" title="Recuperar Clave">Recuperar Clave</a>
+                <br><br>    
+                  <a href="./Acceso/Accesosistematurno.php"id="horario">Horario</a>
+            </form>
+        
+
+        </div>
+
+        <div id="recuperarclave">
+            <h1 class="text-center mb-5 recuperarPass">
+                Recuperar tu Clave
+            </h1>
+
+
+            <form action="recuperarClave.php" method="post">
+                <div class="field-wrap">
+                    <label>Correo</label>
+                    <input type="email" name="email" required autocomplete="off"/>
+                </div>
+            
+                <input type="submit" class="button button-block miBtn mt-5" value="RECUPERAR CLAVE"/>
+
+                <a href="#" id="volver" class="mt-3 mb-4" title="Volver">Volver</a>
+                <br><br>
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>   
+</div>
+
+
+
+
+<script src="assets/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+ $('#recuperarclave').hide(); 
+
+$('#olvidar').on('click', function() {
+    $('#signup').hide(); //para ocultar
+    $("#recuperarclave").fadeIn("slow"); //mostrar
+});
+
+$('#volver').on('click', function() {
+    $('#recuperarclave').hide(); //para ocultar
+    $("#signup").fadeIn("slow"); //mostrar
+});
+</script>
 
     
   </body>
