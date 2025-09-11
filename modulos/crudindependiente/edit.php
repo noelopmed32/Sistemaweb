@@ -144,7 +144,7 @@ while ($row=mysqli_fetch_array($ret)) {
 			</div>        	
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="contrato" value="<?php  echo $row['contrato'];?>" required="true" maxlength="10" pattern="[0-9]+">
+            <input type="text" class="form-control" name="contrato" value="<?php  echo $row['contrato'];?>" required="true" >
         </div>
         <div class="form-group">
         	<input type="text" class="form-control" name="saldos" value="<?php  echo $row['saldos'];?>" required="true">
